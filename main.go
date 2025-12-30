@@ -1,45 +1,67 @@
+
 package main
 
 import (
-	"fmt"
-	"log"
-	"net/http"
+    "fmt"
+    "log"
+    "net/http"
 )
 
-// The port where the server will listen for requests.
 const port = ":8080"
 
-// handler is the HTTP handler function for the root path ("/").
 func handler(w http.ResponseWriter, r *http.Request) {
-	// Set the Content-Type header to tell the browser we are sending HTML.
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+    // Log each request
+    log.Printf("Request: method=%s path=%s remote=%s ua=%q",
+        r.Method, r.URL.Path, r.RemoteAddr, r.UserAgent())
 
-	htmlContent := fmt.Sprintf(`
+    // Only serve the root path
+    if r.URL.Path != "/" {
+        // Log the 404
+        log.Printf("Not Found: path=%s", r.URL.Path)
+
+        // Optional: custom 404 HTML
+        w.Header().Set("Content-Type", "text/html; charset=utf-8")
+        w.WriteHeader(http.StatusNotFound)
+        _, _ = w.Write([]byte(`
 <!DOCTYPE html>
 <html lang="en">
-    <p class="mt-4 text-xl text-gray-500">
-        Your simple Go server is running!
-    </p>
-</body>
+  <head><meta charset="utf-8"><title>404 Not Found</title></head>
+  <body>
+    <h1>404 Not Found</h1>
+    <p>The requested path was not found.</p>
+  </body>
 </html>
-`)
+`))
+        return
+    }
 
-	// Write the HTML content to the response writer.
-	_, err := w.Write([]byte(htmlContent))
-	if err != nil {
-		log.Printf("Error writing response: %v", err)
-	}
+    // Normal response for "/"
+    w.Header().Set("Content-Type", "text/html; charset=utf-8")
+    w.WriteHeader(http.StatusOK)
+
+    htmlContent := `
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="utf-8"><title>Go Server</title></head>
+  <body>
+    <p class="mt-4 text-xl text-gray-500">
+      Your simple Go server is running!
+    </p>
+  </body>
+</html>
+`
+    if _, err := w.Write([]byte(htmlContent)); err != nil {
+        log.Printf("Error writing response: %v", err)
+    }
 }
 
 func main() {
-	// Register the handler function for the root path.
-	http.HandleFunc("/", handler)
+    http.HandleFunc("/", handler)
 
-	fmt.Printf("Starting server on port %s\n", port)
-	fmt.Println("Access it at http://localhost" + port)
+    fmt.Printf("Starting server on port %s\n", port)
+    fmt.Println("Access it at http://localhost" + port)
 
-	// Start the HTTP server. log.Fatal ensures the server exits if it fails to start.
-	if err := http.ListenAndServe(port, nil); err != nil {
-		log.Fatalf("Server failed to start: %v", err)
-	}
+    if err := http.ListenAndServe(port, nil); err != nil {
+        log.Fatalf("Server failed to start: %v", err)
+    }
 }
