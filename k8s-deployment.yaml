@@ -5,7 +5,7 @@ metadata:
   labels:
     app: go-sample
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: go-sample
@@ -21,16 +21,28 @@ spec:
       containers:
         - name: go-sample
           #image: go-sample:latest
-          image: quay.io/jfronius/go-sample:v1
+          image: quay.io/jfronius/go-sample:v2
           imagePullPolicy: Always
           env:
             - name: SAMPLE
               value: "SAMPLE"
+            - name: SAMPLE2
+              value: "SAMPLE2"
+            - name: SAMPLE3
+              value: "SAMPLE3"
           ports:
             - name: http
               containerPort: 8080
               protocol: TCP
-          # Liveness & readiness probes
+          # Health probes
+          startupProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3          
           readinessProbe:
             httpGet:
               path: /
