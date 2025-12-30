@@ -19,11 +19,6 @@ const logFile = "requests.log"
 
 // logRequest appends a single line with timestamp and request context.
 func logRequest(r *http.Request) {
-    // Ensure the log directory exists
-    if err := os.MkdirAll(logDir, 0o755); err != nil {
-        log.Printf("logRequest: failed to create log directory: %v", err)
-        return
-    }
 
     // Open the file in append mode; create if it doesn't exist
     path := filepath.Join(logDir, logFile)
