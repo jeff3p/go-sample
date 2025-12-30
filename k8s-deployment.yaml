@@ -54,10 +54,10 @@ spec:
             limits:
               cpu: 50m
               memory: 64Mi
-      volumeMounts:
+          volumeMounts:
+          - name: go-sample-applogs
+            mountPath: /applogs
+      volumes:
        - name: go-sample-applogs
-         mountPath: /applogs
-    volumes:
-     - name: go-sample-applogs
-       persistentVolumeClaim:
-         claimName: go-sample-pvc
+         persistentVolumeClaim:
+          claimName: go-sample-pvc
