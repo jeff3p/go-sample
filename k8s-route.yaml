@@ -1,0 +1,17 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: go-sample-rt
+  labels:
+    app: go-sample
+spec:
+  to:
+    kind: Service
+    name: go-sample-svc
+  port:
+    targetPort: http
+  tls:
+    # Choose 'edge' for edge-terminated TLS on the router.
+    # Alternatives: 'reencrypt' or 'passthrough' depending on your TLS strategy.
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
