@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+    "time"
 )
 
 // The port where the server will listen for requests.
@@ -11,6 +12,10 @@ const port = ":8080"
 
 // handler is the HTTP handler function for the root path ("/").
 func handler(w http.ResponseWriter, r *http.Request) {
+	
+	start := time.Now()
+	log.Printf("REQ  %s %s from %s ua=%q", r.Method, r.URL.Path, r.RemoteAddr, r.UserAgent())
+
 	// Set the Content-Type header to tell the browser we are sending HTML.
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 
@@ -51,6 +56,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 	// Write the HTML content to the response writer.
 	_, err := w.Write([]byte(htmlContent))
+	
+    // Log how long it took
+    log.Printf("Handled in %v", time.Since(start))
+
 	if err != nil {
 		log.Printf("Error writing response: %v", err)
 	}
@@ -63,6 +72,8 @@ func main() {
 	fmt.Printf("Starting server on port %s\n", port)
 	fmt.Println("Access it at http://localhost" + port)
 
+	log.SetFlags(log.LstdFlags)
+	
 	// Start the HTTP server. log.Fatal ensures the server exits if it fails to start.
 	if err := http.ListenAndServe(port, nil); err != nil {
 		log.Fatalf("Server failed to start: %v", err)
