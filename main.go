@@ -42,7 +42,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	log.Printf("Handled in %v", time.Since(start))
 }
 
-
 func main() {
 	http.HandleFunc("/", handler)
 
