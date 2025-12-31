@@ -57,10 +57,10 @@ func main() {
 	log.Println("Access it at http://localhost" + port)
 
 	sample := os.Getenv("SAMPLE")
- log.Println("Environment variable loaded: " + sample)
+ 	log.Println("Environment variable loaded" + sample)
 
 	sample2 := os.Getenv("SAMPLE2")
-	log.Println("Environment variable loaded: " + sample2)
+	log.Println("Environment variable loaded" + sample2)
 
 
 	log.SetFlags(log.LstdFlags)
