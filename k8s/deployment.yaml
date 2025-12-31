@@ -13,10 +13,6 @@ spec:
     metadata:
       labels:
         app: go-sample
-      annotations:
-        image.openshift.io/triggers: >-
-          [{"from":{"kind":"ImageStreamTag","name":"go-sample:develop"},
-            "fieldPath":"spec.template.spec.containers[?(@.name==\"go-sample\")].image"}]
     spec:
       # OpenShift best practice: run as non-root and allow the platform to assign a UID
       securityContext:
