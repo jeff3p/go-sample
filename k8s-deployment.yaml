@@ -21,15 +21,13 @@ spec:
       containers:
         - name: go-sample
           #image: go-sample:latest
-          image: quay.io/jfronius/go-sample:v2
+          image: quay.io/jfronius/go-sample:develop
           imagePullPolicy: Always
           env:
             - name: SAMPLE
-              value: "SAMPLE"
+              value: "foo"
             - name: SAMPLE2
-              value: "SAMPLE2"
-            - name: SAMPLE3
-              value: "SAMPLE3"
+              value: "bar"
           ports:
             - name: http
               containerPort: 8080
