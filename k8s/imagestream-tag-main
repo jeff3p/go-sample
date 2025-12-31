@@ -1,0 +1,14 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStreamTag
+metadata:
+  name: go-sample:main
+tag:
+  annotations:
+    openshift.io/display-name: "go-sample (main)"
+  from:
+    kind: DockerImage
+    name: quay.io/jfronius/go-sample:main
+  importPolicy:
+    scheduled: true
+  referencePolicy:
+    type: Source
