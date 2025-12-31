@@ -3,8 +3,6 @@ kind: ImageStreamTag
 metadata:
   name: go-sample:develop
 tag:
-  annotations:
-    openshift.io/display-name: "go-sample (develop)"
   from:
     kind: DockerImage
     name: quay.io/jfronius/go-sample:develop
