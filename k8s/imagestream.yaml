@@ -4,4 +4,4 @@ metadata:
   name: go-sample
 spec:
   lookupPolicy:
-    local: false
+    local: true
