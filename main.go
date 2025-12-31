@@ -29,13 +29,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			log.Printf("Error writing response for /banana: %v", err)
 		}
 
-	case "/watermelon":
-		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
-		_, err := w.Write([]byte("watermelon"))
-		if err != nil {
-			log.Printf("Error writing response for /banana: %v", err)
-		}
-
 	default:
 		// Custom 404: set status and write message
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
@@ -55,13 +48,6 @@ func main() {
 
 	log.Printf("Starting server on port %s\n", port)
 	log.Println("Access it at http://localhost" + port)
-
-	sample := os.Getenv("SAMPLE")
- log.Println("Environment variable loaded: " + sample)
-
-	sample2 := os.Getenv("SAMPLE2")
-	log.Println("Environment variable loaded: " + sample2)
-
 
 	log.SetFlags(log.LstdFlags)
 
