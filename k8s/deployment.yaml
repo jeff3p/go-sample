@@ -20,8 +20,7 @@ spec:
         # Do NOT set a specific runAsUser; OpenShift will inject a random UID that must be allowed by the image
       containers:
         - name: go-sample
-          #image: go-sample:latest
-          image: quay.io/jfronius/go-sample:develop
+          image: go-sample:main
           imagePullPolicy: Always
           env:
             - name: SAMPLE
