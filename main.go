@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 	"net/http"
- "time"
- "os"
+	"time"
+	"os"
 )
 
 const port = ":8080"
@@ -62,8 +62,8 @@ func main() {
   sample2 := os.Getenv("SAMPLE2")
   log.Println("Environment variable loaded" + sample2)
 
-  sample3 := os.Getenv("SAMPLE3")
-  log.Println("Environment variable loaded" + sample3)
+ 	sample3 := os.Getenv("SAMPLE3")
+ 	log.Println("Environment variable loaded" + sample3)
 
 	log.SetFlags(log.LstdFlags)
 
