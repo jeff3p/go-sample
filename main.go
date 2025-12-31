@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
  "time"
@@ -53,8 +52,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/", handler)
 
-	fmt.Printf("Starting server on port %s\n", port)
-	fmt.Println("Access it at http://localhost" + port)
+	log.Printf("Starting server on port %s\n", port)
+	log.Println("Access it at http://localhost" + port)
 
 	log.SetFlags(log.LstdFlags)
 
