@@ -1,56 +1,26 @@
 package main
 
 import (
-	"log"
-	"net/http"
-	"time"
-	"os"
+    "fmt"
+    "net/http"
 )
 
-const port = ":8080"
-
-func handler(w http.ResponseWriter, r *http.Request) {
-	start := time.Now()
-	log.Printf("REQ  %s %s from %s ua=%q", r.Method, r.URL.Path, r.RemoteAddr, r.UserAgent())
-
-	// Respond based on the exact path
-	switch r.URL.Path {
-	case "/":
-		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
-		_, err := w.Write([]byte("document root"))
-		if err != nil {
-			log.Printf("Error writing response for /: %v", err)
-		}
-
-	case "/banana":
-		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
-		_, err := w.Write([]byte("banana"))
-		if err != nil {
-			log.Printf("Error writing response for /banana: %v", err)
-		}
-
-	default:
-		// Custom 404: set status and write message
-		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
-		w.WriteHeader(http.StatusNotFound)
-		_, err := w.Write([]byte("404 not found"))
-		if err != nil {
-			log.Printf("Error writing 404 response: %v", err)
-		}
-	}
-
-	log.Printf("Handled in %v", time.Since(start))
-}
-
 func main() {
-	http.HandleFunc("/", handler)
+    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+        w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 
-	log.Printf("Starting server on port %s\n", port)
-	log.Println("Access it at http://localhost" + port)
+        switch r.URL.Path {
+        case "/":
+            fmt.Fprint(w, "document root")
+        case "/banana":
+            fmt.Fprint(w, "banana")
+        default:
+            // Keep it simple: no logging, default 404
+            http.NotFound(w, r)
+        }
+    })
 
-	log.SetFlags(log.LstdFlags)
-
-	if err := http.ListenAndServe(port, nil); err != nil {
-		log.Fatalf("Server failed to start: %v", err)
-	}
+    if err := http.ListenAndServe(":8080", nil); err != nil {
+        panic(err)
+    }
 }
