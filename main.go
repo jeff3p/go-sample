@@ -15,7 +15,28 @@ func main() {
     // Startup logs (no time)
     log.Println("Starting HTTP server on :8080")
     log.Println("Access at http://localhost:8080")
+    log.Println("Expecting PVC mounted at /applogs")
 
+    // List /applogs contents at startup
+    const dir = "/applogs"
+    entries, err := os.ReadDir(dir)
+    if err != nil {
+        log.Printf("ERROR reading %s: %v", dir, err)
+    } else {
+        if len(entries) == 0 {
+            log.Printf("listing %s: (empty)", dir)
+        } else {
+            log.Printf("listing %s:", dir)
+            for _, e := range entries {
+                name := e.Name()
+                if e.IsDir() {
+                    name += "/"
+                }
+                log.Println(" -", name)
+            }
+        }
+    }
+    
     http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
         // Per-request log (before handling)
         log.Printf("REQ %s %s from %s ua=%q", r.Method, r.URL.Path, r.RemoteAddr, r.UserAgent())
