@@ -59,8 +59,8 @@ func main() {
 	sample := os.Getenv("SAMPLE")
  log.Println("Environment variable loaded: " + sample)
 
-	//sample2 := os.Getenv("SAMPLE2")
-	//log.Println("Environment variable loaded: " + sample2)
+	sample2 := os.Getenv("SAMPLE2")
+	log.Println("Environment variable loaded: " + sample2)
 
 
 	log.SetFlags(log.LstdFlags)
