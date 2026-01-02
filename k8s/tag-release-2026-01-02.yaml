@@ -1,0 +1,12 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStreamTag
+metadata:
+  name: go-sample:release-2026-01-02
+tag:
+  from:
+    kind: DockerImage
+    name: quay.io/jfronius/go-sample:release-2026-01-02
+  importPolicy:
+    scheduled: true
+  referencePolicy:
+    type: Source
