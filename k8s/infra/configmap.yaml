@@ -8,3 +8,5 @@ data:
   # Each entry becomes an environment variable when used via envFrom
   SAMPLE: "foo"
   SAMPLE2: "bar"
+  SPRING_DATASOURCE_URL: jdbc:sqlserver://mssql:1433;databaseName=Sample;trustServerCertificate=true
+  SPRING_DATASOURCE_USERNAME: appuser
