@@ -26,6 +26,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: go-sample-configmap
+            - secretRef:
+                name: spring-secrets
           ports:
             - name: http
               containerPort: 8080
