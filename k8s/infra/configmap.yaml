@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: go-sample-configmap
+  labels:
+    app: go-sample
+data:
+  # Each entry becomes an environment variable when used via envFrom
+  SAMPLE: "foo"
+  SAMPLE2: "bar"
