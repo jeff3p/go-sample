@@ -22,11 +22,10 @@ spec:
         - name: go-sample
           image: go-sample:develop
           imagePullPolicy: Always
-          env:
-            - name: SAMPLE
-              value: "foo"
-            - name: SAMPLE2
-              value: "bar"
+          # Bring in ALL keys from the ConfigMap as env vars
+          envFrom:
+            - configMapRef:
+                name: go-sample-configmap
           ports:
             - name: http
               containerPort: 8080
