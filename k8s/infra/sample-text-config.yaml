@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sample-text-config
+data:
+  # This key will become the filename when mounted
+  sample.txt: |
+    Hello, this is a sample text file.
+    It was created using a ConfigMap in OpenShift/Kubernetes.
