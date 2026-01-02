@@ -63,6 +63,7 @@ func main() {
         }
 
         // Completion log (no duration)
+        // test
         log.Printf("DONE %s %s", r.Method, r.URL.Path)
     })
 
