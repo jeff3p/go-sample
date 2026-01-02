@@ -4,6 +4,14 @@ metadata:
   name: go-sample
   labels:
     app: go-sample
+  annotations:
+    image.openshift.io/triggers: >-
+      [
+        {
+          "from": { "kind": "ImageStreamTag", "name": "go-sample:develop" },
+          "fieldPath": "spec.template.spec.containers[?(@.name=='go-sample')].image",
+        }
+      ]
 spec:
   replicas: 1
   selector:
