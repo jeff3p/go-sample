@@ -65,7 +65,16 @@ spec:
           volumeMounts:
           - name: go-sample-applogs
             mountPath: /applogs
+          - name: sample-text-volume
+            mountPath: /sampletext
+            readOnly: true
       volumes:
        - name: go-sample-applogs
          persistentVolumeClaim:
           claimName: go-sample-pvc
+      - name: sample-text-volume
+        configMap:
+          name: sample-text-config
+          items:
+            - key: sample.txt
+              path: sample.txt
